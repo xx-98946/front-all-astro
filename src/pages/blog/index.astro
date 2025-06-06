@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Layout title="博客列表">
+  <section>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}/`}>
+              <img src={post.data.heroImage} class="w-10" />
+              <h4 class="title">{post.data.title}</h4>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

@@ -1,0 +1,81 @@
+---
+import FlexHeader from "@/components/astro/FlexHeader.astro";
+import "@/styles/global.css";
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- 代码高亮 -->
+    <script>
+      let copyButtonLabel = "代码复制";
+      let codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+      for (let codeBlock of codeBlocks) {
+        let wrapper = document.createElement("div");
+        wrapper.style.position = "relative";
+
+        let copyButton = document.createElement("button");
+        copyButton.className =
+          "absolute top-0 right-0 bg-gray-900 py-1 px-3 rounded-t-sm hover:bg-gray-700 cursor-pointer -translate-y-full";
+        copyButton.innerHTML = copyButtonLabel;
+
+        codeBlock.setAttribute("tabindex", "0");
+        codeBlock.appendChild(copyButton);
+        // wrap codebock with relative parent element
+        codeBlock.parentNode!.insertBefore(wrapper, codeBlock);
+        wrapper.appendChild(codeBlock);
+
+        copyButton.addEventListener("click", async () => {
+          await copyCode(codeBlock, copyButton);
+        });
+      }
+
+      async function copyCode(
+        block: HTMLPreElement,
+        button: HTMLButtonElement,
+      ) {
+        let code = block.querySelector("code");
+        let text = code!.innerText;
+
+        await navigator.clipboard.writeText(text);
+
+        // visual feedback that task is completed
+        button.innerText = "复制完成";
+
+        setTimeout(() => {
+          button.innerText = copyButtonLabel;
+        }, 700);
+      }
+    </script>
+    <!-- 翻译为中文 -->
+    <script>
+      const item = document.querySelector("#footnote-label");
+      if (item) {
+        item.innerHTML = "脚注";
+      }
+    </script>
+  </head>
+  <body>
+    <FlexHeader>
+      <main
+        class="prose m-auto max-w-8/9 md:max-w-3/5 pb-20 prose-pre:rounded-tr-none
+      dark:prose-invert"
+      >
+        <h1 class="mt-4">{title}</h1>
+        <slot />
+      </main>
+    </FlexHeader>
+  </body>
+</html>
