@@ -13,13 +13,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 import mdx from "@astrojs/mdx";
 
-import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
   markdown: {},
-
   integrations: [
     react({
       include: ["**/react/*"],
@@ -35,8 +32,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  adapter: node({
-    mode: "standalone",
-  }),
 });
