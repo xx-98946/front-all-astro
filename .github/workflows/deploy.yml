@@ -39,5 +39,3 @@ jobs:
         with:
           project: "xuxin-astro"
           entrypoint: dist/server/entry.mjs
-          
-          
