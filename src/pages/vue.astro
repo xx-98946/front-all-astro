@@ -1,5 +1,8 @@
 ---
+import Page from "@/components/vue/Page.vue";
 import Layout from "@/layouts/Layout.astro";
 ---
 
-<Layout> vue </Layout>
+<Layout>
+  <Page client:only="vue" />
+</Layout>

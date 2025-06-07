@@ -1,6 +1,20 @@
-import { createSignal } from "solid-js";
+import { useDerived, useSignal } from "./utils";
 
 export default function Page() {
-  const [getCount, setCount] = createSignal(0);
-  return <div onClick={() => setCount(1)}>solid {getCount()}</div>;
+  const count = useSignal(0);
+  const double = useDerived(() => count.get() * 2);
+
+  function addOne() {
+    count.set((v) => v + 1);
+  }
+
+  function setDouble() {
+    double.set(Math.random());
+  }
+  return (
+    <>
+      <div onClick={addOne}>solid {count.get()}</div>
+      <div onClick={setDouble}>双倍 {double.get()}</div>
+    </>
+  );
 }
