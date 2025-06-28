@@ -1,8 +1,8 @@
 ---
-title: "Markdown 语法指南"
-description: "在 astro 中编写 Markdown 的基本语法"
-pubDate: "2025-06-06"
-heroImage: "/blogs/blog-placeholder-1.jpg"
+标题: "Markdown 语法指南"
+描述: "在 astro 中编写 Markdown 的基本语法"
+发布日期: "2025-06-06"
+图片: "/blogs/blog-placeholder-1.jpg"
 ---
 
 在 astro 中编写 Markdown 的基本语法

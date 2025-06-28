@@ -2,11 +2,11 @@
 import FlexHeader from "@/components/astro/FlexHeader.astro";
 import "@/styles/global.css";
 interface Props {
-  title: string;
-  description?: string;
-  image?: string;
+  标题: string;
+  描述?: string;
+  图片?: string;
 }
-const { title } = Astro.props;
+const { 标题 } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,27 +16,44 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{标题}</title>
     <!-- 代码高亮 -->
     <script>
-      let copyButtonLabel = "代码复制";
+      const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M15.24 2h-3.894c-1.764 0-3.162 0-4.255.148c-1.126.152-2.037.472-2.755 1.193c-.719.721-1.038 1.636-1.189 2.766C3 7.205 3 8.608 3 10.379v5.838c0 1.508.92 2.8 2.227 3.342c-.067-.91-.067-2.185-.067-3.247v-5.01c0-1.281 0-2.386.118-3.27c.127-.948.413-1.856 1.147-2.593s1.639-1.024 2.583-1.152c.88-.118 1.98-.118 3.257-.118h3.07c1.276 0 2.374 0 3.255.118A3.6 3.6 0 0 0 15.24 2"/><path fill="currentColor" d="M6.6 11.397c0-2.726 0-4.089.844-4.936c.843-.847 2.2-.847 4.916-.847h2.88c2.715 0 4.073 0 4.917.847S21 8.671 21 11.397v4.82c0 2.726 0 4.089-.843 4.936c-.844.847-2.202.847-4.917.847h-2.88c-2.715 0-4.073 0-4.916-.847c-.844-.847-.844-2.21-.844-4.936z"/></svg>
+`;
+      let copyButtonLabel = svg + " 复制";
       let codeBlocks = Array.from(document.querySelectorAll("pre"));
 
-      for (let codeBlock of codeBlocks) {
-        let wrapper = document.createElement("div");
-        wrapper.style.position = "relative";
+      /**
+       * 将新节点插入到当前节点之前
+       * @param newItem
+       * @param item
+       */
+      function insertBefore(newItem: Node, item: Node) {
+        item.parentElement?.insertBefore(newItem, item);
+      }
 
+      for (let codeBlock of codeBlocks) {
+        console.log("??codeBlock", codeBlock);
+        let wrapper = document.createElement("div");
+        wrapper.classList =
+          "rounded-t-md bg-gray-700 px-2 text-gray-200 flex justify-between p-2";
+
+        let langSpan = document.createElement("span");
+        const lang = codeBlock.dataset.language;
+        langSpan.innerText = (lang || "");
+        wrapper.appendChild(langSpan);
         let copyButton = document.createElement("button");
-        copyButton.className =
-          "absolute top-0 right-0 bg-black py-1 px-3 rounded-t-sm hover:bg-gray-700 cursor-pointer -translate-y-full text-sm";
+        copyButton.classList =
+          "text-sm px-2 py-1 rounded cursor-pointer text-xs hover:bg-gray-600 flex items-center gap-1";
+
         copyButton.innerHTML = copyButtonLabel;
 
-        codeBlock.setAttribute("tabindex", "0");
-        codeBlock.appendChild(copyButton);
-        // wrap codebock with relative parent element
-        codeBlock.parentNode!.insertBefore(wrapper, codeBlock);
-        wrapper.appendChild(codeBlock);
+        wrapper.appendChild(copyButton);
+        insertBefore(wrapper, codeBlock);
 
+        codeBlock.setAttribute("tabindex", "0");
         copyButton.addEventListener("click", async () => {
           await copyCode(codeBlock, copyButton);
         });
@@ -44,7 +61,7 @@ const { title } = Astro.props;
 
       async function copyCode(
         block: HTMLPreElement,
-        button: HTMLButtonElement,
+        button: HTMLButtonElement
       ) {
         let code = block.querySelector("code");
         let text = code!.innerText;
@@ -52,10 +69,10 @@ const { title } = Astro.props;
         await navigator.clipboard.writeText(text);
 
         // visual feedback that task is completed
-        button.innerText = "复制完成";
+        button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20"><path fill="currentColor" d="M8.294 16.998c-.435 0-.847-.203-1.111-.553L3.61 11.724a1.39 1.39 0 0 1 .27-1.951a1.39 1.39 0 0 1 1.953.27l2.351 3.104l5.911-9.492a1.396 1.396 0 0 1 1.921-.445c.653.406.854 1.266.446 1.92L9.478 16.34a1.39 1.39 0 0 1-1.12.656z"/></svg> 复制`;
 
         setTimeout(() => {
-          button.innerText = copyButtonLabel;
+          button.innerHTML = copyButtonLabel;
         }, 1000);
       }
     </script>
@@ -70,9 +87,9 @@ const { title } = Astro.props;
   <body>
     <FlexHeader>
       <main
-        class="prose m-auto max-w-8/9 md:max-w-3/5 pb-20 prose-pre:rounded-tr-none dark:prose-invert"
+        class="prose m-auto max-w-8/9 md:max-w-3/5 pb-20 prose-pre:rounded-t-none prose-pre:m-0 prose-pre:border-t-0 dark:prose-invert"
       >
-        <h1 class="mt-4">{title}</h1>
+        <h1 class="mt-4">{标题}</h1>
         <slot />
       </main>
     </FlexHeader>

@@ -13,10 +13,10 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { title } = post.data;
+const { 标题 } = post.data;
 const { Content } = await render(post);
 ---
 
-<MdLayout title={title}>
+<MdLayout 标题={标题}>
   <Content />
 </MdLayout>

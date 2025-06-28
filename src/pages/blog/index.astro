@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.发布日期.valueOf() - a.data.发布日期.valueOf(),
 );
 ---
 
@@ -14,8 +14,8 @@ const posts = (await getCollection("blog")).sort(
         posts.map((post) => (
           <li>
             <a href={`/blog/${post.id}/`}>
-              <img src={post.data.heroImage} class="w-10" />
-              <h4 class="title">{post.data.title}</h4>
+              <img src={post.data.图片} class="w-10" />
+              <h4 class="title">{post.data.标题}</h4>
             </a>
           </li>
         ))
