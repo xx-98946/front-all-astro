@@ -42,7 +42,7 @@ const { 标题 } = Astro.props;
 
         let langSpan = document.createElement("span");
         const lang = codeBlock.dataset.language;
-        langSpan.innerText = (lang || "");
+        langSpan.innerText = lang || "";
         wrapper.appendChild(langSpan);
         let copyButton = document.createElement("button");
         copyButton.classList =
@@ -61,7 +61,7 @@ const { 标题 } = Astro.props;
 
       async function copyCode(
         block: HTMLPreElement,
-        button: HTMLButtonElement
+        button: HTMLButtonElement,
       ) {
         let code = block.querySelector("code");
         let text = code!.innerText;

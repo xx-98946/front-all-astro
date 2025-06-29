@@ -4,6 +4,7 @@ import {
   type Accessor,
   type Setter,
 } from "solid-js";
+export { createEffect as useEffect, onMount } from "solid-js";
 
 interface ISignal<T> {
   get: Accessor<T>;

@@ -1,4 +1,4 @@
-import { useDerived, useSignal } from "./utils";
+import { useDerived, useSignal } from "@/utils/solid.ts";
 
 export default function Page() {
   const count = useSignal(0);

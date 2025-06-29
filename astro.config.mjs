@@ -18,10 +18,10 @@ export default defineConfig({
   markdown: {},
   integrations: [
     react({
-      include: ["**/react/*"],
+      include: ["**/react/**"],
     }),
     solidJs({
-      include: ["**/solid/*"],
+      include: ["**/solid/**"],
     }),
     vue(),
     svelte(),
