@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.发布日期.valueOf() - a.data.发布日期.valueOf(),
+  (a, b) => b.data.发布时间.valueOf() - a.data.发布时间.valueOf(),
 );
 ---
 

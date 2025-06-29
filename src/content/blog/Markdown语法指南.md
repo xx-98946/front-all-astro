@@ -1,7 +1,7 @@
 ---
 标题: "Markdown 语法指南"
 描述: "在 astro 中编写 Markdown 的基本语法"
-发布日期: "2025-06-06"
+发布时间: "2025-06-06"
 图片: "/blogs/blog-placeholder-1.jpg"
 ---
 

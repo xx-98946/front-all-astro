@@ -9,7 +9,7 @@ const blog = defineCollection({
     标题: z.string(),
     描述: z.string(),
     // Transform string to Date object
-    发布日期: z.coerce.date(),
+    发布时间: z.coerce.date(),
     更新日期: z.coerce.date().optional(),
     图片: z.string().optional(),
   }),
